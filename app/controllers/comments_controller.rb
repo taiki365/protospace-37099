@@ -1,12 +1,13 @@
 class CommentsController < ApplicationController
   def create
-    comment = Comment.new(comment_params)
-    if comment.save
-      redirect_to action: :index
+    @comment = Comment.new(comment_params)
+    if @comment.save
+      @comment = @comment.user
+      redirect_to root_path
     else
-      @prototype = comment.prototype
-      render "prototypes/index"  
+      render :index
     end
+    @comments = @comment.comments.includes(:user)
   end
 
   private

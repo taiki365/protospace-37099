@@ -4,14 +4,13 @@
       <p class="prototype__hedding">
         <%= @prototype.title %>
       </p>  
-      <%= link_to "by"+@prototype.user.name, user_path(current_user.id), method: :get, class: :prototype__user %>
+      <%= link_to "by"+@prototype.user.name,@prototype, method: :get, class: :prototype__user %>
       <% if user_signed_in? && current_user.id == @prototype.user_id %>
           <div class="prototype__manage">
             <%= link_to "編集する", edit_prototype_path(@prototype.id), class: :prototype__btn, method: :get %>
             <%= link_to "削除する",  prototype_path(@prototype.id), class: :prototype__btn, method: :delete %>
           </div>
       <% end %>
-      <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
       <div class="prototype__image">
         <%= image_tag @prototype.image %>
       </div>
@@ -33,8 +32,8 @@
         <% if user_signed_in? %>
           <%= form_with(model: [@prototype, @comment], local: true) do |f| %>
             <div class="field">
-              <%= f.label :comment, "コメント" %><br />
-              <%= f.text_field :comment, id:"comment_content" %>
+              <%= f.label :content, "コメント" %><br />
+              <%= f.text_field :content, id:"comment_content" %>
             </div>
             <div class="actions">
               <%= f.submit "送信する", class: :form__btn  %>
@@ -43,11 +42,11 @@
         <% end %>
         <% if user_signed_in? %>
         <ul class="comments_lists">
-          <% @comments.each do |commnent| %>
+          <% @comments.each do |comment| %>
             <li class="comments_list">
               <%= comment.content %>
-              <%= link_to comment.user, user_path(current_user.id), method: :get, class: :comment_user %>
-            </li>
+              <%= link_to comment.user.name, "/users/#{comment.user_id}", method: :get, class: :comment_user %>
+            </li> 
           <% end %>
         </ul>
         <% end %>

@@ -5,8 +5,7 @@
     <p class="card__summary">
       <%= link_to prototype.catch_copy %>
     </p>
-    <% if user_signed_in? %>
-    <%= link_to "by"+ prototype.user.name, user_path(current_user.id), method: :get, class: :card__user %>
-    <% end %>
+    <%= link_to "by"+ prototype.user.name, user_path(prototype.user_id), method: :get, class: :card__user %>
+    <%# prototype.user.nameの名前表示, ()の名前の指定 %>
   </div>
 </div>
