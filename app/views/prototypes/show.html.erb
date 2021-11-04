@@ -4,13 +4,14 @@
       <p class="prototype__hedding">
         <%= @prototype.title %>
       </p>  
-      <%= link_to "by"+@prototype.user.name,@prototype, method: :get, class: :prototype__user %>
+      <%= link_to "by"+@prototype.user.name,"/users/#{@prototype.user_id}", method: :get, class: :prototype__user %>
       <% if user_signed_in? && current_user.id == @prototype.user_id %>
           <div class="prototype__manage">
             <%= link_to "編集する", edit_prototype_path(@prototype.id), class: :prototype__btn, method: :get %>
             <%= link_to "削除する",  prototype_path(@prototype.id), class: :prototype__btn, method: :delete %>
           </div>
       <% end %>
+      
       <div class="prototype__image">
         <%= image_tag @prototype.image %>
       </div>

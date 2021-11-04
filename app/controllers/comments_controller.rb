@@ -3,11 +3,12 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if @comment.save
       @comment = @comment.user
-      redirect_to root_path
+      redirect_to request.referer
     else
-      render :index
+      @prototype = @comment.prototype
+      @comments = @prototype.comments
+      render  'prototypes/show'
     end
-    @comments = @comment.comments.includes(:user)
   end
 
   private
